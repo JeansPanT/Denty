@@ -62,6 +62,7 @@ class NewPatient extends Patient{
 		try {
 			ps = cn.prepareStatement("select * from patient");
 
+
 		} catch (SQLException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -79,6 +80,35 @@ class NewPatient extends Patient{
             throw new RuntimeException(e);
         }
     }
+
+	public void viewPatientbyID(){
+		System.out.println("Enter your ID :");
+		int iid= Sc.nextInt();
+		PreparedStatement ps;
+		try {
+			ps = cn.prepareStatement("select * from patient where id=?");
+			ps.setInt(1,iid);
+
+
+		} catch (SQLException ex) {
+			throw new RuntimeException(ex);
+		}
+		try {
+			ResultSet rs=ps.executeQuery();
+			System.out.println("PATIENT ID"+" | "+"PATIENT NAME"+" | "+"PHONE NO");
+			while(rs.next())
+			{
+				int id=rs.getInt(1);
+				String name=rs.getString(2);
+				int phoneno=rs.getInt(3);
+				System.out.println(id+" - "+name+" - "+phoneno);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
 	public void delPatient(){
 		System.out.println("Enter your ID");
 		int id= Sc.nextInt();
