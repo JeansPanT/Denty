@@ -6,9 +6,10 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Denty App v1.0");
 		System.out.println("1 - add New Patients");
-		System.out.println("2 - View Patients");
-		System.out.println("3 - delete Patients");
-		System.out.println("4 - Modify Patients");
+		System.out.println("2 - View all Patients");
+		System.out.println("3 - View Patients by ID");
+		System.out.println("4 - delete Patients");
+		System.out.println("5 - Modify Patients");
 		System.out.println("0 - Exit");
 		System.out.println("Enter your Choice : ");
 		int choice = sc.nextInt();
@@ -22,10 +23,14 @@ public class App {
 				break;
 			}
 			case 3: {
-				t.delPatient();
+				t.viewPatientbyID();
 				break;
 			}
 			case 4: {
+				t.delPatient();
+				break;
+			}
+			case 5: {
 				t.editPatient();
 				break;
 			}
