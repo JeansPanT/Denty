@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        body {
+            padding-left: 220px; /* Adjusted to account for the navbar width */
+            background-color: #f8f9fa;
+        }
+        h1 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        .table-container {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(23, 162, 184, 0.9), rgba(0, 123, 255, 0.8)); /* Gradient background */
+            padding-top: 60px; /* Increased padding */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Subtle box shadow */
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .navbar-toggler {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1030;
+            border: none;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='skyblue' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .navbar-nav {
+            width: 100%;
+            padding-left: 20px; /* Adjusted padding for better alignment */
+            display: flex;
+            flex-direction: column;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .nav-link {
+            color: white !important;
+            font-size: 18px; /* Increased font size */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+            display: flex;
+            align-items: center;
+        }
+        .nav-link:hover {
+            color: #ffcc00 !important; /* Hover color change */
+            transform: scale(1.1); /* Slight zoom effect on hover */
+        }
+        .nav-link i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Hamburger Menu Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Navbar -->
+    <div class="collapse" id="navbarContent">
+        <nav class="navbar navbar-expand-md navbar-dark flex-column">
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item">
+                    <a href="./dashboard.html" class="nav-link"> <!-- Link to index page -->
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user-injured"></i> Patients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Appointments
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-file-invoice-dollar"></i> Payments
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="text-center">Patients</h1>
+        <div class="table-container">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>45</td>
+                        <td>Male</td>
+                        <td>(123) 456-7890</td>
+                        <td>johndoe@example.com</td>
+                        <td>1234 Elm St, Springfield, IL</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>38</td>
+                        <td>Female</td>
+                        <td>(987) 654-3210</td>
+                        <td>janesmith@example.com</td>
+                        <td>5678 Oak St, Springfield, IL</td>
+                    </tr>
+                    <tr>
+                        <td>Robert Johnson</td>
+                        <td>29</td>
+                        <td>Male</td>
+                        <td>(555) 123-4567</td>
+                        <td>robertjohnson@example.com</td>
+                        <td>9101 Maple Ave, Springfield, IL</td>
+                    </tr>
+                    <!-- Add more patient rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
