@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    transition: padding-left 0.3s ease; /* Smooth transition when adjusting content */
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(23, 162, 184, 0.9), rgba(0, 123, 255, 0.8));
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: width 0.3s ease, padding-left 0.3s ease; /* Smooth transition for opening/closing navbar */
+}
+
+.navbar.collapsed {
+    width: 60px; /* Shrinks the navbar width when collapsed */
+}
+
+.navbar.collapsed .nav-link span {
+    display: none; /* Hides the text when navbar is collapsed */
+}
+
+.navbar.collapsed .nav-link {
+    justify-content: center; /* Centers the icon when text is hidden */
+}
+
+.navbar-toggler {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1030;
+    border: none;
+    background: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='skyblue' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.nav-link {
+    color: white !important;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Add padding to center the text and icons */
+}
+
+.nav-link i {
+    font-size: 20px;
+    width: 40px; /* Ensures consistent width for icons */
+    text-align: center;
+}
+
+.nav-link span {
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+.nav-link:hover {
+    color: #ffcc00 !important; /* Change text and icon color on hover */
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Adjusts content margin when navbar toggles */
+}
+
+.navbar.collapsed ~ .content {
+    margin-left: 60px; /* Adjusts content margin when navbar is collapsed */
+}
+
+.content h1, .content p {
+    text-align: center;
+}
+
+.table-container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    transition: width 0.3s ease; /* Smooth transition for table resizing */
+}
+
+.table-container.collapsed {
+    width: calc(100% - 80px); /* Adjust width when sidebar is collapsed */
+}
+
+.table-container.expanded {
+    width: calc(100% - 240px); /* Adjust width when sidebar is expanded */
+}
+
+.card-deck {
+    margin-bottom: 20px;
+}
+
+.card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card-title {
+    font-weight: bold;
+    color: rgb(37, 150, 190);
+}
+
+.card-text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1; /* Light grey background on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
