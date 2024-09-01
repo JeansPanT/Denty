@@ -1,0 +1,21 @@
+Changelog - 02/09/24 - 12:34 AM
+1. index.html
+- Fixed Book an appointment buttons & form
+- Fixed text visibility on image slides
+
+2. Contact.jsp
+- Added a box for contact details 
+- Removed contact form and replaced it with Contact details
+- Added redirection for Book an appointment below Map API.
+
+3. Admin-login.jsp
+- Changed UI for Admin Login
+- Added responsive error placeholder to display Invalid credentials
+- Added session and cookies once a admin logins 
+- Cookies will be automatically removed once logged in to prevent redirection or opening of pages once logged out.
+
+
+4. Dashboard & Patients.jsp
+- Linked Yash's navbar inside all the pages of Admin panel
+- Added Rohan's patient's table inside patients.jsp
+
