@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.ResultSet, java.sql.Statement" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ include file="navbar.jsp" %>
 
 <%
+    
+    // Check if session is valid
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect("admin-login.jsp");
+        return;
+    }
+
+    // Disable caching
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
     // Database connection parameters
     String url = "jdbc:mysql://localhost:3306/denty"; // Replace with your database URL
     String username = "root"; // Replace with your MySQL username
@@ -57,48 +70,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patients</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="admin.css"> <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
-    
-    <!-- Hamburger Menu Button -->
-    <button class="navbar-toggler" type="button" id="navbarToggle">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Collapsible Navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark flex-column" id="navbarContent">
-        <ul class="navbar-nav flex-column">
-            <li class="nav-item">
-                <a href="dashboard.jsp" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="patients.jsp" class="nav-link">
-                    <i class="fas fa-user-injured"></i> <span>Patients</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-calendar-alt"></i> <span>Appointments</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
-                </a>
-            </li>
-            <!-- Add the Logout Button -->
-            <li class="nav-item">
-                <a href="LogoutServlet" class="nav-link">
-                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+ 
     <!-- Main Content -->
     <div class="container">
         <h1 class="text-center">Patients</h1>

@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ include file="navbar.jsp" %>
 <%
     // Check if session is valid
@@ -19,14 +18,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Denty App</title>
-    <link rel="stylesheet" href="admin.css"> <!-- Link to the external CSS file -->
-    </head>
+    <title>Reports</title>
+    
+    <link rel="stylesheet" href="admin.css"> <!-- Link to your external CSS file -->
+ 
+</head>
 <body>
     <!-- Main Content -->
     <div class="content">
-        <h1>Welcome to Denty!!!</h1>
-        <p>This is the dashboard. Use the navigation on the left to manage patients, appointments, and more.</p>
+        <h1>Reports</h1>
+        <p>Here you can view and generate various reports.</p>
+        <!-- Add your report content here -->
     </div>
-    </body>
+    <script>
+    // JavaScript to handle the navbar toggle
+    document.getElementById('navbarToggle').addEventListener('click', function() {
+        document.getElementById('navbarContent').classList.toggle('collapsed');
+        document.querySelector('.content').classList.toggle('collapsed');
+    });
+</script>
+
+</body>
 </html>
