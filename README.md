@@ -1,4 +1,4 @@
-# Denty Appointment Management System
+# Denty App v1.0 BETA
 
 This is a web-based application designed for managing patient appointments, records, and payments for a dental clinic. The system is built using Java, JSP, Servlets, MySQL, and Tomcat. The frontend utilizes Bootstrap for styling, and the application is optimized for both desktop and mobile usage.
 
