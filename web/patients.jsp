@@ -4,7 +4,6 @@
 <%@ include file="navbar.jsp" %>
 
 <%
-    
     // Check if session is valid
     if (session == null || session.getAttribute("username") == null) {
         response.sendRedirect("admin-login.jsp");
@@ -15,6 +14,9 @@
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setDateHeader("Expires", 0); // Proxies
+
+    // Get search criteria from the request
+    String searchQuery = request.getParameter("searchQuery") != null ? request.getParameter("searchQuery") : "";
 
     // Database connection parameters
     String url = "jdbc:mysql://localhost:3306/denty"; // Replace with your database URL
@@ -36,8 +38,13 @@
         // Create a statement to execute SQL queries
         stmt = conn.createStatement();
 
-        // Execute the query to retrieve patients
+        // SQL query to search by ID, name, or phone number
         String sql = "SELECT id, name, age, gender, phoneno, blood FROM patient";
+        if (!searchQuery.isEmpty()) {
+            sql += " WHERE id LIKE '%" + searchQuery + "%' OR name LIKE '%" + searchQuery + "%' OR phoneno LIKE '%" + searchQuery + "%'";
+        }
+
+        // Execute the query to retrieve patients
         rs = stmt.executeQuery(sql);
 
         // Process the result set and store it in an ArrayList
@@ -69,14 +76,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patients</title>
+    <title>Patients - Denty</title>
+    
     <link rel="stylesheet" href="admin.css"> <!-- Link to the external CSS file -->
+    
+    <style>
+        /* Center align the content and add margin from the top */
+        .container {
+            margin: 50px auto; /* Centers the container and adds 50px gap from the top */
+            max-width: 1200px; /* Adjust this width as per your design */
+        }
+
+        h1 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            margin-top: 30px; /* Adds space between the elements */
+        }
+
+        .form-inline {
+            justify-content: center; /* Centers the search form */
+            margin-bottom: 20px;
+        }
+
+        /* Adjusting buttons alignment */
+        .text-right {
+            text-align: center; /* Center-align the Add New Patient button */
+        }
+
+        .btn-success {
+            margin-top: 20px; /* Adds some margin on top of the Add button */
+        }
+    </style>
 </head>
 <body>
- 
+
     <!-- Main Content -->
     <div class="container">
         <h1 class="text-center">Patients</h1>
+
+        <!-- Search Form -->
+        <form method="get" action="patients.jsp" class="form-inline mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="searchQuery" placeholder="Search by ID, Name, or Phone" value="<%= searchQuery %>">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
 
         <!-- Add New Patient Button -->
         <div class="mb-3 text-right">
@@ -112,9 +162,12 @@
                         <td><%= patient[4] %></td>
                         <td><%= patient[5] %></td>
                         <td>
-                            <button class="btn btn-sm btn-primary" onclick="openEditModal('<%= patient[0] %>', '<%= patient[1] %>', '<%= patient[2] %>', '<%= patient[3] %>', '<%= patient[4] %>', '<%= patient[5] %>')">Edit</button>
-                            <button class="btn btn-sm btn-danger" onclick="deletePatient('<%= patient[0] %>')">Delete</button>
-                        </td>
+    <button class="btn btn-sm btn-primary" onclick="openEditModal('<%= patient[0] %>', '<%= patient[1] %>', '<%= patient[2] %>', '<%= patient[3] %>', '<%= patient[4] %>', '<%= patient[5] %>')">Edit</button>
+    <button class="btn btn-sm btn-danger" onclick="deletePatient('<%= patient[0] %>')">Delete</button>
+    <a class="btn btn-sm btn-info" href="reports.jsp?selectedPatientId=<%= patient[0] %>">View Report</a>
+</td>
+
+
                     </tr>
                     <%
                         }
@@ -235,14 +288,11 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
     <script>
-        // JavaScript to handle the navbar toggle
-        document.getElementById('navbarToggle').addEventListener('click', function() {
-            document.getElementById('navbarContent').classList.toggle('collapsed');
-            document.querySelector('.content').classList.toggle('collapsed');
-        });
         function openEditModal(id, name, age, gender, phoneno, blood) {
             document.getElementById('editId').value = id;
             document.getElementById('editName').value = name;

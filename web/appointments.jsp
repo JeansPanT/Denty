@@ -15,12 +15,6 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setDateHeader("Expires", 0); // Proxies
 
-    // Example of initializing some session or data
-    if (session.getAttribute("username") == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-    
     // Example data for appointments (in a real scenario, this would come from a database)
     List<String[]> todayAppointments = new ArrayList<>();
     todayAppointments.add(new String[]{"1", "John Doe", "john@example.com", "2023-09-01", "10:00 AM", "Upcoming"});
@@ -37,7 +31,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Appointment Management</title>
+    <title>Appointments - Denty</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Global Styles */
@@ -48,6 +42,28 @@
             background-color: #f4f6f9;
             transition: margin-left 0.3s ease;
             overflow-x: hidden;
+        }
+
+        .content {
+            margin: 50px auto;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .table-container {
+            margin: 30px 0;
+        }
+        
+        h2 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-weight: bold;
+           
+            margin-bottom: 20px;
         }
 
         /* Navbar Styles */
@@ -132,38 +148,9 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* Content Styles */
-        .content {
-            margin-left: 220px;
-            padding: 20px;
-            transition: margin-left 0.3s ease, width 0.3s ease;
-            width: calc(100% - 220px);
-        }
-
-        .navbar.collapsed + .content {
-            margin-left: 60px;
-            width: calc(100% - 60px);
-        }
-
-        h2 {
-            color: #343a40;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        h3 {
-            color: #007bff;
-            font-weight: 600;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        /* Table Styles */
-        .table {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        .table th, .table td {
+            padding: 16px 10px;
+            vertical-align: middle;
         }
 
         .table th {
@@ -172,30 +159,13 @@
             font-weight: 600;
         }
 
-        .table td {
-            vertical-align: middle;
-        }
-
-        /* Button Styles */
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
+        .btn {
             border-radius: 30px;
             padding: 10px 20px;
         }
 
         .btn-success:hover {
             background-color: #218838;
-            border-color: #1e7e34;
-        }
-
-        .btn-primary {
-            border-radius: 30px;
-            padding: 10px 20px;
-        }
-
-        .btn-close {
-            color: black;
         }
 
         /* Modal Styles */
@@ -203,9 +173,8 @@
             border-radius: 15px;
         }
 
-        /* Hover Effects */
-        .table tbody tr:hover {
-            background-color: #f2f2f2;
+        .btn-close {
+            color: black;
         }
 
         /* Responsive Styles */
@@ -244,7 +213,6 @@
             }
         }
     </style>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -257,37 +225,37 @@
     <!-- Collapsible Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark flex-column" id="navbarContent">
          <ul class="navbar-nav flex-column">
-        <li class="nav-item">
-            <a href="dashboard.jsp" class="nav-link">
-                <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="patients.jsp" class="nav-link">
-                <i class="fas fa-user-injured"></i> <span>Patients</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="appointments.jsp" class="nav-link">
-                <i class="fas fa-calendar-alt"></i> <span>Appointments</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="reports.jsp" class="nav-link">
-                <i class="fas fa-file-alt"></i> <span>Reports</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="LogoutServlet" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-            </a>
-        </li>
-    </ul>
+            <li class="nav-item">
+                <a href="dashboard.jsp" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="patients.jsp" class="nav-link">
+                    <i class="fas fa-user-injured"></i> <span>Patients</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="appointments.jsp" class="nav-link active">
+                    <i class="fas fa-calendar-alt"></i> <span>Appointments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="reports.jsp" class="nav-link">
+                    <i class="fas fa-file-alt"></i> <span>Reports</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="LogoutServlet" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                </a>
+            </li>
+        </ul>
     </nav>
 
     <!-- Main Content -->
@@ -301,7 +269,7 @@
         
         <!-- Today's Appointments -->
         <h3>Today's Appointments</h3>
-        <div class="card mb-4">
+        <div class="table-container card mb-4">
             <div class="card-body">
                 <table class="table table-bordered mb-0">
                     <thead>
@@ -315,7 +283,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="todayAppointments">
+                    <tbody>
                         <%
                             for (String[] appointment : todayAppointments) {
                         %>
@@ -340,7 +308,7 @@
         
         <!-- Upcoming Appointments -->
         <h3>Upcoming Appointments</h3>
-        <div class="card mb-4">
+        <div class="table-container card mb-4">
             <div class="card-body">
                 <table class="table table-bordered mb-0">
                     <thead>
@@ -354,7 +322,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="upcomingAppointments">
+                    <tbody>
                         <%
                             for (String[] appointment : upcomingAppointments) {
                         %>
@@ -379,7 +347,7 @@
         
         <!-- Previous Appointments -->
         <h3>Previous Appointments</h3>
-        <div class="card mb-4">
+        <div class="table-container card mb-4">
             <div class="card-body">
                 <table class="table table-bordered mb-0">
                     <thead>
@@ -392,7 +360,7 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody id="previousAppointments">
+                    <tbody>
                         <%
                             for (String[] appointment : previousAppointments) {
                         %>
@@ -463,6 +431,5 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
