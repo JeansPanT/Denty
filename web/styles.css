@@ -328,6 +328,74 @@ footer {
     margin-bottom: 10px;
 }
 
+/* Feedback Section Styling */
+.feedback {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.feedback h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.feedback-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align the text to the left */
+}
+
+.feedback-form .form-group {
+    margin-bottom: 20px;
+}
+
+.feedback-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: 500;
+}
+
+.feedback-form input,
+.feedback-form select {
+    width: calc(100% - 20px); /* Adjust width to fit padding */
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+}
+
+.feedback-form input:focus,
+.feedback-form select:focus {
+    border-color: #007BFF;
+    outline: none;
+    background-color: #fff;
+}
+
+.feedback-form .btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.feedback-form .btn:hover {
+    background-color: #0056b3;
+}
+
 /* Appointment Section Styling */
 .appointment {
     background-color: #f9f9f9;

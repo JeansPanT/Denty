@@ -120,6 +120,7 @@
             <li><a href="index.html#services">Services</a></li>
             <li><a href="index.html#testimonials">Testimonials</a></li>
             <li><a href="index.html#appointment">Book Appointment</a></li>
+            <li><a href="feed.html">Feed</a></li>
             <li><a href="contact.jsp">Contact</a></li>
             <li><a href="admin-login.jsp" class="admin-btn">Admin Login</a></li>
         </ul>
