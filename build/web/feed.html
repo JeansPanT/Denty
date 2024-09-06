@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Denty</title>
+    <title>Feed - Denty</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -27,58 +28,45 @@
 </header>
 
 <!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="slideshow">
-        <!-- Slideshow images -->
-        <div class="slide" style="background-image: url('images/image1.jpg');"></div>
-        <div class="slide" style="background-image: url('images/image2.png');"></div>
-        <div class="slide" style="background-image: url('images/image3.jpg');"></div>
-    </div>
-    <div class="hero-content">
-        <h1>Welcome to Our Clinic</h1>
-        <p>Providing exceptional healthcare services to our community.</p>
-        <a href="#appointment" class="btn">Book an Appointment</a>
-    </div>
-</section>
 
 <!-- Services Section -->
 <section id="services" class="services">
-    <h2>Our Services</h2>
+    <h2>Latest Updates</h2>
     <div class="services-container">
         <div class="service">
-            <h3>General Checkup</h3>
+            <h3>BLOG CASCADE</h3>
+            <img src="images/image1.jpg" width="500" height="300">
+            <h4>BLOG TITLE</h4>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
+            <p>Comprehensive health assessments and regular checkups.</p>
             <p>Comprehensive health assessments and regular checkups.</p>
         </div>
         <div class="service">
-            <h3>Pediatrics</h3>
+            <h3>BLOG CASCADE</h3>
             <p>Dedicated care for infants, children, and adolescents.</p>
         </div>
         <div class="service">
-            <h3>Dental Care</h3>
+            <h3>BLOG CASCADE</h3>
             <p>High-quality dental care with modern equipment.</p>
         </div>
+        
     </div>
 </section>
 
-<!-- Testimonials Section -->
-<section id="testimonials" class="testimonials">
-    <h2>What Our Patients Say</h2>
-    <div class="testimonial-container">
-        <div class="testimonial">
-            <p>"Great service and friendly staff!"</p>
-            <span>- BICCHU DAAN</span>
-        </div>
-        <div class="testimonial">
-            <p>"Highly recommend this clinic for their professionalism."</p>
-            <span>- BARIK NIGGA</span>
-        </div>
-    </div>
-</section>
 
-<!-- Appointment Booking Section -->
-<section id="appointment" class="appointment">
-    <h2>Book an Appointment</h2>
-    <form action="submit-appointment.jsp" method="POST" class="appointment-form">
+<!-- Feedback Form Section -->
+<section id="feedback" class="feedback">
+    <h2>Feedback Form</h2>
+    <form action="#" method="POST" class="feedback-form">
         <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
@@ -92,18 +80,8 @@
             <input type="tel" id="phone" name="phone" required>
         </div>
         <div class="form-group">
-            <label for="timeslot">Preferred Time Slot</label>
-            <select id="timeslot" name="timeslot" required>
-                <option value="10am">10:00 AM</option>
-                <option value="11am">11:00 AM</option>
-                <option value="12pm">12:00 PM</option>
-                <option value="1pm">1:00 PM</option>
-                <option value="2pm">2:00 PM</option>
-                <option value="3pm">3:00 PM</option>
-                <option value="4pm">4:00 PM</option>
-                <option value="5pm">5:00 PM</option>
-                <option value="6pm">6:00 PM</option>
-            </select>
+            <label for="feedback">Feedback message</label>
+            <textarea id="feedback" name="feedback-response" rows="5" cols="55"></textarea>
         </div>
         <button type="submit" class="btn">Submit</button>
     </form>
