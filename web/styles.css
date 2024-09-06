@@ -186,6 +186,8 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
+    padding:5px;
+    margin:5px
 }
 
 .service {
@@ -210,6 +212,11 @@ body {
 .service p {
     color: #666;
     line-height: 1.5;
+    padding:2px;
+    margin:3px;
+}
+.service img{
+    margin:20px;
 }
 
 /* Testimonials Section */
@@ -479,5 +486,9 @@ footer {
         font-size: 1rem; /* Slightly smaller font size for smaller screens */
     }
 }
+
+
+
+
 
 
