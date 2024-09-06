@@ -28,7 +28,7 @@ public class checkLogin extends HttpServlet {
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/denty", "root", "");
 
             // Prepare statement to query user credentials
-            PreparedStatement ps = cn.prepareStatement("SELECT * FROM admin_users WHERE username=? AND BINARY password=?");
+            PreparedStatement ps = cn.prepareStatement("SELECT * FROM admin WHERE username=? AND BINARY password=?");
             ps.setString(1, username);
             ps.setString(2, password);
 
