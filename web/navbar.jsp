@@ -29,6 +29,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Global Styles */
@@ -38,7 +39,7 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f6f9;
     transition: margin-left 0.3s ease;
-    overflow-x: hidden;
+    overflow-x: hidden; 
 }
 
 /* Navbar Styles */
@@ -188,6 +189,7 @@ h3 {
     </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
 
@@ -219,6 +221,11 @@ h3 {
                     <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
                 </a>
             </li>
+           <li class="nav-item">
+    <a href="adminFeed.jsp" class="nav-link <%=(currentPage.contains("adminFeed.jsp") ? "active" : "")%>">
+        <i class="fa-solid fa-message-check"></i> <span>Feed Panel</span>
+    </a>
+</li>
             <li class="nav-item">
                 <a href="reports.jsp" class="nav-link <%=(currentPage.contains("reports.jsp") ? "active" : "")%>">
                     <i class="fas fa-file-alt"></i> <span>Reports</span>

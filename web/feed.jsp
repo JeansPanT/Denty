@@ -1,4 +1,7 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Post" %>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,34 +36,31 @@
 <section id="services" class="services">
     <h2>Latest Updates</h2>
     <div class="services-container">
+        <%-- Retrieve the list of posts from the request attribute --%>
+        <%
+            List<Post> posts = (List<Post>) request.getAttribute("posts");
+            if (posts != null && !posts.isEmpty()) {
+                for (Post post : posts) {
+        %>
         <div class="service">
-            <h3>BLOG CASCADE</h3>
-            <img src="images/image1.jpg" width="500" height="300">
-            <h4>BLOG TITLE</h4>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
+            <h3><%= post.getTitle() %></h3>
+            <%-- Display the image if it exists --%>
+            <c:if test="${not empty post.imagePath}">
+                <img src="${pageContext.request.contextPath}/uploads/<%= post.getImagePath() %>" width="500" height="300" alt="<%= post.getTitle() %>">
+            </c:if>
+            <p><%= post.getDescription() %></p>
         </div>
-        <div class="service">
-            <h3>BLOG CASCADE</h3>
-            <p>Dedicated care for infants, children, and adolescents.</p>
-        </div>
-        <div class="service">
-            <h3>BLOG CASCADE</h3>
-            <p>High-quality dental care with modern equipment.</p>
-        </div>
-        
+        <%
+                }
+            } else {
+        %>
+        <p>No posts available at the moment.</p>
+        <% 
+            }
+        %>
     </div>
 </section>
+
 
 
 <!-- Feedback Form Section -->

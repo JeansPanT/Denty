@@ -46,7 +46,7 @@
 
         .content {
             margin: 50px auto;
-            max-width: 1050px;
+            max-width: 1200px;
             padding: 20px;
         }
 
@@ -245,6 +245,11 @@
                     <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
                 </a>
             </li>
+            <li class="nav-item">
+    <a href="adminFeed.jsp" class="nav-link">
+        <i class="fa-solid fa-message-check"></i> <span>Feed Panel</span>
+    </a>
+</li>
             <li class="nav-item">
                 <a href="reports.jsp" class="nav-link">
                     <i class="fas fa-file-alt"></i> <span>Reports</span>

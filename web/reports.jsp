@@ -83,7 +83,7 @@
     <style>
         .content {
             margin: 50px auto;
-            max-width: 1050px;
+            max-width: 1200px;
             padding: 20px;
         }
 
