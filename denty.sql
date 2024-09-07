@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2024 at 06:11 PM
+-- Generation Time: Sep 07, 2024 at 07:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,7 +82,8 @@ CREATE TABLE `patient_reports` (
 --
 
 INSERT INTO `patient_reports` (`report_id`, `patient_id`, `report_name`, `file_path`, `uploaded_at`) VALUES
-(1, '100', 'BP REPORT', 'C:\\Users\\JeansPanT\\Desktop\\My Programs\\Denty App\\build\\web\\uploads\\Colorful College Sheet.xlsx', '2024-09-06 16:05:00');
+(1, '100', 'BP REPORT', 'C:\\Users\\JeansPanT\\Desktop\\My Programs\\Denty App\\build\\web\\uploads\\Colorful College Sheet.xlsx', '2024-09-06 16:05:00'),
+(2, '100', 'testy', 'C:\\Users\\JeansPanT\\Desktop\\My Programs\\Denty App\\build\\web\\uploads\\EA Sports FC 24.png', '2024-09-06 16:35:39');
 
 --
 -- Indexes for dumped tables
@@ -109,7 +110,7 @@ ALTER TABLE `patient_reports`
 -- AUTO_INCREMENT for table `patient_reports`
 --
 ALTER TABLE `patient_reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
