@@ -8,6 +8,7 @@ This is a web-based application designed for managing patient appointments, reco
 - **Appointment Scheduling**: Schedule and manage patient appointments.
 - **Payments Tracking**: Record and manage payments from patients.
 - **Reports**: Generate reports related to patients, appointments, and payments.
+- **Feed**: Create responsive and creative pages that will reflect back on home page as blog cascades.
 - **Responsive Design**: Fully responsive UI, compatible with mobile devices.
 - **Error Handling**: Graceful handling of errors with a centralized `error.jsp` page.
 
@@ -67,7 +68,9 @@ cd denty-appointment-management
 - **Manage Patients**: Navigate to the "Patients" section to view, add, or edit patient information.
 - **Manage Appointments**: Use the "Appointments" tab to schedule or manage patient appointments.
 - **Payments**: View and record payments for patient services.
-
+- **Feed**: Create responsive and creative pages that will reflect back on home page as blog cascades.
+- **Reports**: Generate reports related to patients, appointments, and payments.
+  
 ## Error Handling
 
 In case of any errors, a custom `error.jsp` page will handle unexpected issues and display a relevant message to the user. Ensure proper session and connection cleanup to avoid errors.
