@@ -397,6 +397,7 @@ footer {
 }
 
 /* Appointment Section Styling */
+/* Appointment Section Styling */
 .appointment {
     background-color: #f9f9f9;
     padding: 50px 20px;
@@ -416,7 +417,11 @@ footer {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    text-align: left; /* Align the text to the left */
+    text-align: left;
+    /* Add 3D border effect */
+    border: 1px solid #ccc; /* Light grey outer border */
+    border-top: 3px solid #888; /* Darker grey top border for 3D effect */
+    border-left: 3px solid #888; /* Darker grey left border for 3D effect */
 }
 
 .appointment-form .form-group {
@@ -439,6 +444,7 @@ footer {
     font-size: 1rem;
     background-color: #f8f8f8;
     transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
 }
 
 .appointment-form input:focus,
@@ -457,27 +463,28 @@ footer {
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Button shadow for elevation */
 }
 
 .appointment-form .btn:hover {
     background-color: #0056b3;
+    transform: translateY(-3px); /* Elevate the button on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
 @media (max-width: 768px) {
     .appointment-form {
         padding: 20px;
-        width: 100%; /* Ensure form width adjusts to smaller screens */
+        width: 100%;
     }
 
     .appointment-form input,
     .appointment-form select {
-        width: calc(100% - 20px); /* Adjust width for smaller screens */
+        width: calc(100% - 20px);
     }
 
     .appointment-form .btn {
-        font-size: 1rem; /* Slightly smaller font size for smaller screens */
+        font-size: 1rem;
     }
 }
-
-
