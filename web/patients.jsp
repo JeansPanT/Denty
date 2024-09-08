@@ -84,7 +84,7 @@
         /* Center align the content and add margin from the top */
         .container {
             margin: 50px auto; /* Centers the container and adds 50px gap from the top */
-            max-width: 1200px; /* Adjust this width as per your design */
+            max-width: 1050px;
         }
 
         h1 {
