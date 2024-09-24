@@ -16,7 +16,7 @@ This is a web-based application designed for managing patient appointments, reco
 
 - **Backend**: Java, JSP, Servlets
 - **Database**: MySQL
-- **Frontend**: HTML, CSS (Bootstrap), JavaScript
+- **Frontend**: HTML, CSS (Bootstrap), JavaScript, jQuery
 - **Server**: Apache Tomcat
 - **Database Driver**: JDBC
 
