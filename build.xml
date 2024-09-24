@@ -10,6 +10,7 @@
 <project name="Denty_App" default="default" basedir=".">
     <description>Builds, tests, and runs the project Denty App.</description>
     <import file="nbproject/build-impl.xml"/>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -68,4 +69,13 @@
     nbproject/build-impl.xml file. 
 
     -->
+ 
+ <target name="war">
+    <mkdir dir="${build.dir}/WEB-INF" />
+    <copy file="src/main/webapp/WEB-INF/appengine-web.xml" todir="${build.dir}/WEB-INF" />
+    <copy file="src/main/webapp/WEB-INF/web.xml" todir="${build.dir}/WEB-INF" />
+    <!-- Other build steps -->
+</target>
+
+
 </project>

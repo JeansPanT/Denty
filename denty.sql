@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2024 at 07:52 PM
+-- Generation Time: Sep 24, 2024 at 07:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,16 +44,77 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `appointments`
+--
+
+CREATE TABLE `appointments` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phoneno` varchar(20) DEFAULT NULL,
+  `date` date NOT NULL,
+  `timeslot` varchar(20) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `name`, `email`, `phoneno`, `date`, `timeslot`, `status`) VALUES
+(36, 'test', 'jeanspant101@gmail.com', NULL, '2024-09-24', '11:33', 'completed'),
+(37, 'Testtt', 'jeanspant101@gmail.com', NULL, '2024-09-24', '22:23', 'completed'),
+(38, 'sid', 'sdasdasd@gmail.com', NULL, '2024-09-25', '23:32', 'completed');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone_number` varchar(20) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `full_name`, `email`, `phone_number`, `message`, `created_at`) VALUES
+(1, 'Siddharth', 'siddhukar39@gmail.com', '123314', 'tests', '2024-09-24 13:46:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` int(255) NOT NULL,
+  `patient_id` int(255) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `invoice_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `patient`
 --
 
 CREATE TABLE `patient` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `age` int(11) NOT NULL,
-  `gender` enum('Male','Female','Other') NOT NULL,
-  `phoneno` varchar(15) NOT NULL,
-  `blood` varchar(5) DEFAULT NULL
+  `id` int(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `age` int(255) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `phoneno` int(11) NOT NULL,
+  `blood` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -61,7 +122,12 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`id`, `name`, `age`, `gender`, `phoneno`, `blood`) VALUES
-('100', 'test', 31, 'Male', '3245242', 'B+');
+(3, 'Rohan', 12, 'Male', 1232342, 'test@gmail.com'),
+(5, 'siddharth', 12, 'Male', 124234234, 'jeanspant101@gmail.com'),
+(6, 'testq2', 23, 'Male', 234234234, 'test@gmail.com'),
+(7, 'Prince jaiswal', 20, 'Male', 123123123, 'siddharth@letsgamenow.com'),
+(8, 'test', 12, 'Male', 123134234, 'test@gmail.com'),
+(9, 'Nigam Shab', 56, 'Male', 1234567, 'A-');
 
 -- --------------------------------------------------------
 
@@ -71,29 +137,54 @@ INSERT INTO `patient` (`id`, `name`, `age`, `gender`, `phoneno`, `blood`) VALUES
 
 CREATE TABLE `patient_reports` (
   `report_id` int(11) NOT NULL,
-  `patient_id` varchar(255) DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
   `report_name` varchar(255) NOT NULL,
-  `file_path` varchar(255) NOT NULL,
-  `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `file_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `patient_reports`
+-- Table structure for table `posts`
 --
 
-INSERT INTO `patient_reports` (`report_id`, `patient_id`, `report_name`, `file_path`, `uploaded_at`) VALUES
-(1, '100', 'BP REPORT', 'C:\\Users\\JeansPanT\\Desktop\\My Programs\\Denty App\\build\\web\\uploads\\Colorful College Sheet.xlsx', '2024-09-06 16:05:00'),
-(2, '100', 'testy', 'C:\\Users\\JeansPanT\\Desktop\\My Programs\\Denty App\\build\\web\\uploads\\EA Sports FC 24.png', '2024-09-06 16:35:39');
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `imagePath` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `appointments`
+--
+ALTER TABLE `appointments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_id` (`patient_id`);
+
+--
 -- Indexes for table `patient`
 --
 ALTER TABLE `patient`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `phoneno` (`phoneno`);
 
 --
 -- Indexes for table `patient_reports`
@@ -103,24 +194,66 @@ ALTER TABLE `patient_reports`
   ADD KEY `patient_id` (`patient_id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `appointments`
+--
+ALTER TABLE `appointments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `patient`
+--
+ALTER TABLE `patient`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `patient_reports`
 --
 ALTER TABLE `patient_reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `patient_reports`
 --
 ALTER TABLE `patient_reports`
-  ADD CONSTRAINT `patient_reports_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `patient_reports_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
