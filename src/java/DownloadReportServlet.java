@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 @WebServlet("/DownloadReportServlet")
 public class DownloadReportServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String UPLOAD_DIRECTORY = "C:/Users/JeansPanT/Desktop/My Programs/Denty App/build/web/uploads"; // Updated to absolute path
+    private static final String UPLOAD_DIRECTORY = "uploads"; // Use relative path
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve and decode the file path from the request
@@ -32,8 +32,11 @@ public class DownloadReportServlet extends HttpServlet {
             return;
         }
 
+        // Get the absolute path for the uploads directory
+        String absolutePath = getServletContext().getRealPath("/") + UPLOAD_DIRECTORY;
+        
         // Create a file object using the absolute path
-        File file = new File(UPLOAD_DIRECTORY, new File(filePath).getName());
+        File file = new File(absolutePath, new File(filePath).getName());
         System.out.println("File to download: " + file.getAbsolutePath()); // Log file path
 
         if (file.exists() && file.isFile()) {

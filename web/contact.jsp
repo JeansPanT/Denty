@@ -34,7 +34,7 @@
     <!-- Clinic Information Box -->
     <div class="clinic-info">
       <h3>Our Location</h3>
-      <p><strong>Address:</strong> XYZ, Biskut Nagar, Indore, 45010</p>
+      <p><strong>Address:</strong> 610-A, Saket Nagar, Indore, 45010</p>
       <p><strong>Phone:</strong> (+91) 1234567890</p>
       <p><strong>Email:</strong> info@dentyapp.com</p>
       <p><strong>Working Hours:</strong> Mon - Fri: 10:00 AM - 6:00 PM</p>
@@ -49,6 +49,7 @@
     <div class="appointment-redirect">
       <h3>Book an Appointment</h3>
       <p>Ready to book an appointment? Click the button below to schedule your visit.</p>
+      <br>
       <a href="index.html#appointment" class="btn">Book Appointment</a>
     </div>
   </div>

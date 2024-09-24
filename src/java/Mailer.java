@@ -37,6 +37,7 @@ public class Mailer extends HttpServlet {
         String date = request.getParameter("date");
         String timeslot = request.getParameter("timeslot");
         
+        
         // Database connection parameters
         String url = "jdbc:mysql://localhost:3306/denty";
         String username = "root";
@@ -64,6 +65,7 @@ public class Mailer extends HttpServlet {
             stmt.setString(3, phoneno);
             stmt.setString(4, date);
             stmt.setString(5, timeslot);
+            
             stmt.executeUpdate();
 
             // Setup mail server properties

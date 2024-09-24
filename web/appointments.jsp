@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="java.util.ArrayList" %>
-
+<%@ page import="java.util.List" %>
 <%
-    
+    // Database connection setup
+    String dbURL = "jdbc:mysql://localhost:3306/denty";
+    String dbUser = "root";
+    String dbPassword = "";
+
     // Check if session is valid
     if (session == null || session.getAttribute("username") == null) {
         response.sendRedirect("admin-login.jsp");
@@ -11,20 +15,66 @@
     }
 
     // Disable caching
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-    response.setDateHeader("Expires", 0); // Proxies
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
 
-    // Example data for appointments (in a real scenario, this would come from a database)
     List<String[]> todayAppointments = new ArrayList<>();
-    todayAppointments.add(new String[]{"1", "John Doe", "john@example.com", "2023-09-01", "10:00 AM", "Upcoming"});
-    
     List<String[]> upcomingAppointments = new ArrayList<>();
-    upcomingAppointments.add(new String[]{"2", "Jane Smith", "jane@example.com", "2023-09-02", "11:00 AM", "Upcoming"});
-    
     List<String[]> previousAppointments = new ArrayList<>();
-    previousAppointments.add(new String[]{"3", "Bob Johnson", "bob@example.com", "2023-08-30", "02:00 PM", "Completed"});
+
+    try (Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+         Statement stmt = conn.createStatement()) {
+
+        // Query to get today's appointments
+        String todayQuery = "SELECT * FROM appointments WHERE date = CURDATE()";
+        ResultSet rsToday = stmt.executeQuery(todayQuery);
+        while (rsToday.next()) {
+            todayAppointments.add(new String[]{
+                String.valueOf(rsToday.getInt("id")),
+                rsToday.getString("name"),
+                rsToday.getString("email"),
+                rsToday.getString("date"),
+                rsToday.getString("timeslot"),
+                rsToday.getString("status")
+            });
+        }
+
+        // Query to get upcoming appointments
+        String upcomingQuery = "SELECT * FROM appointments WHERE date > CURDATE()";
+        ResultSet rsUpcoming = stmt.executeQuery(upcomingQuery);
+        while (rsUpcoming.next()) {
+            upcomingAppointments.add(new String[]{
+                String.valueOf(rsUpcoming.getInt("id")),
+                rsUpcoming.getString("name"),
+                rsUpcoming.getString("email"),
+                rsUpcoming.getString("date"),
+                rsUpcoming.getString("timeslot"),
+                rsUpcoming.getString("status")
+            });
+        }
+
+        // Query to get previous appointments
+        String previousQuery = "SELECT * FROM appointments WHERE date < CURDATE()";
+        ResultSet rsPrevious = stmt.executeQuery(previousQuery);
+        while (rsPrevious.next()) {
+            previousAppointments.add(new String[]{
+                String.valueOf(rsPrevious.getInt("id")),
+                rsPrevious.getString("name"),
+                rsPrevious.getString("email"),
+                rsPrevious.getString("date"),
+                rsPrevious.getString("timeslot"),
+                rsPrevious.getString("status")
+            });
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+
 %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -217,7 +267,7 @@
 </head>
 <body>
 
-    <!-- Hamburger Menu Button -->
+     <!-- Hamburger Menu Button -->
     <button class="navbar-toggler" type="button" id="navbarToggle">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -241,13 +291,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="payment.jsp" class="nav-link">
                     <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
                 </a>
             </li>
             <li class="nav-item">
     <a href="adminFeed.jsp" class="nav-link">
-        <i class="fa-solid fa-message-check"></i> <span>Feed Panel</span>
+        <i class="fas fa-rss"></i> <span>Feeds</span>
     </a>
 </li>
             <li class="nav-item">
@@ -266,175 +316,312 @@
     <!-- Main Content -->
     <div class="content container mt-5">
         <h2 class="text-center mb-4">Appointment Management</h2>
-        
-        <!-- New Appointment Button -->
-        <div class="mb-4 text-end">
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#appointmentModal">New Appointment</button>
-        </div>
-        
-        <!-- Today's Appointments -->
-        <h3>Today's Appointments</h3>
-        <div class="table-container card mb-4">
-            <div class="card-body">
-                <table class="table table-bordered mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (String[] appointment : todayAppointments) {
-                        %>
-                        <tr>
-                            <td><%= appointment[0] %></td>
-                            <td><%= appointment[1] %></td>
-                            <td><%= appointment[2] %></td>
-                            <td><%= appointment[3] %></td>
-                            <td><%= appointment[4] %></td>
-                            <td><%= appointment[5] %></td>
-                            <td>
-                                <button class="btn btn-primary">Edit</button>
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Upcoming Appointments -->
-        <h3>Upcoming Appointments</h3>
-        <div class="table-container card mb-4">
-            <div class="card-body">
-                <table class="table table-bordered mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (String[] appointment : upcomingAppointments) {
-                        %>
-                        <tr>
-                            <td><%= appointment[0] %></td>
-                            <td><%= appointment[1] %></td>
-                            <td><%= appointment[2] %></td>
-                            <td><%= appointment[3] %></td>
-                            <td><%= appointment[4] %></td>
-                            <td><%= appointment[5] %></td>
-                            <td>
-                                <button class="btn btn-primary">Edit</button>
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Previous Appointments -->
-        <h3>Previous Appointments</h3>
-        <div class="table-container card mb-4">
-            <div class="card-body">
-                <table class="table table-bordered mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (String[] appointment : previousAppointments) {
-                        %>
-                        <tr>
-                            <td><%= appointment[0] %></td>
-                            <td><%= appointment[1] %></td>
-                            <td><%= appointment[2] %></td>
-                            <td><%= appointment[3] %></td>
-                            <td><%= appointment[4] %></td>
-                            <td><%= appointment[5] %></td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    
+     <!-- New Appointment Button -->
+<div class="mb-4 text-end">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#appointmentModal">New Appointment</button>
+</div>
 
-    <!-- Edit/New Appointment Modal -->
-    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="appointmentModalLabel">Edit Appointment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="appointmentForm">
-                        <div class="mb-3">
-                            <label for="modalName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="modalName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modalEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="modalEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modalDate" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="modalDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modalTime" class="form-label">Time</label>
-                            <input type="time" class="form-control" id="modalTime" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modalStatus" class="form-label">Status</label>
-                            <select class="form-select" id="modalStatus" required>
-                                <option value="upcoming">Upcoming</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Appointment</button>
-                    </form>
-                </div>
+    <!-- Today's Appointments -->
+    <h3>Today's Appointments</h3>
+    <div class="table-container card mb-4">
+        <div class="card-body">
+            <table class="table table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        for (String[] appointment : todayAppointments) {
+                    %>
+                    <tr>
+                        <td><%= appointment[0] %></td>
+                        <td><%= appointment[1] %></td>
+                        <td><%= appointment[2] %></td>
+                        <td><%= appointment[3] %></td>
+                        <td><%= appointment[4] %></td>
+                        <td><%= appointment[5] %></td>
+                        <td>
+    <button class="btn btn-warning btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editAppointmentModal"
+            data-id="<%= appointment[0] %>"
+            data-name="<%= appointment[1] %>"
+            data-email="<%= appointment[2] %>"
+            data-date="<%= appointment[3] %>"
+            data-timeslot="<%= appointment[4] %>"
+            data-status="<%= appointment[5] %>">
+        Edit
+    </button>
+    <%
+        if (!appointment[5].equals("completed")) { // Show only if the status is not completed
+    %>
+    <form action="CompleteAppointmentServlet" method="post" style="display:inline;">
+        <input type="hidden" name="id" value="<%= appointment[0] %>">
+        <button type="submit" class="btn btn-success btn-sm">Completed</button>
+    </form>
+    <%
+        }
+    %>
+</td>
+   
+                    </tr>
+                    <%
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+              
+
+<!-- Upcoming Appointments -->
+<h3>Upcoming Appointments</h3>
+<div class="table-container card mb-4">
+    <div class="card-body">
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    for (String[] appointment : upcomingAppointments) {
+                %>
+                <tr>
+                    <td><%= appointment[0] %></td>
+                    <td><%= appointment[1] %></td>
+                    <td><%= appointment[2] %></td>
+                    <td><%= appointment[3] %></td>
+                    <td><%= appointment[4] %></td>
+                    <td><%= appointment[5] %></td>
+                    <td>
+    <button class="btn btn-warning btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editAppointmentModal"
+            data-id="<%= appointment[0] %>"
+            data-name="<%= appointment[1] %>"
+            data-email="<%= appointment[2] %>"
+            data-date="<%= appointment[3] %>"
+            data-timeslot="<%= appointment[4] %>"
+            data-status="<%= appointment[5] %>">
+        Edit
+    </button>
+    <%
+        if (!appointment[5].equals("completed")) { // Show only if the status is not completed
+    %>
+    <form action="CompleteAppointmentServlet" method="post" style="display:inline;">
+        <input type="hidden" name="id" value="<%= appointment[0] %>">
+        <button type="submit" class="btn btn-success btn-sm">Completed</button>
+    </form>
+    <%
+        }
+    %>
+</td>
+    
+                </tr>
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Previous Appointments -->
+<h3>Previous / Completed Appointments</h3>
+<div class="table-container card mb-4">
+    <div class="card-body">
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    for (String[] appointment : previousAppointments) {
+                %>
+                <tr>
+                    <td><%= appointment[0] %></td>
+                    <td><%= appointment[1] %></td>
+                    <td><%= appointment[2] %></td>
+                    <td><%= appointment[3] %></td>
+                    <td><%= appointment[4] %></td>
+                    <td><%= appointment[5] %></td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#editAppointmentModal"
+                                data-id="<%= appointment[0] %>"
+                                data-name="<%= appointment[1] %>"
+                                data-email="<%= appointment[2] %>"
+                                data-date="<%= appointment[3] %>"
+                                data-timeslot="<%= appointment[4] %>"
+                                data-status="<%= appointment[5] %>">
+                            Edit
+                        </button>
+                        <%
+                            if (!appointment[5].equals("completed")) { // This condition might not be necessary here since it's already in "Previous"
+                        %>
+                        <form action="CompleteAppointmentServlet" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="<%= appointment[0] %>">
+                            <button type="submit" class="btn btn-success btn-sm">Mark as Completed</button>
+                        </form>
+                        <%
+                            }
+                        %>
+                    </td>
+                </tr>
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<!-- New Appointment Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentModalLabel">New Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="appointmentForm" method="post" action="Mailer">
+                    <input type="hidden" id="appointmentId" name="id">
+                    <div class="mb-3">
+                        <label for="modalName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="modalName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="modalEmail" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="modalDate" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalTime" class="form-label">Time</label>
+                        <input type="time" class="form-control" id="modalTime" name="timeslot" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalStatus" class="form-label">Status</label>
+                        <select class="form-select" id="modalStatus" name="status" required>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Appointment</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Edit Appointment Modal -->
+<div class="modal fade" id="editAppointmentModal" tabindex="-1" aria-labelledby="editAppointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAppointmentModalLabel">Edit Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm" method="post" action="UpdateAppointmentServlet">
+                    <input type="hidden" id="editAppointmentId" name="id">
+                    <div class="mb-3">
+                        <label for="editModalName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editModalName" name="name" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editModalEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editModalEmail" name="email" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editModalDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="editModalDate" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editModalTime" class="form-label">Time</label>
+                        <input type="time" class="form-control" id="editModalTime" name="timeslot" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editModalStatus" class="form-label">Status</label>
+                        <select class="form-select" id="editModalStatus" name="status" required>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Appointment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // JavaScript to prefill the edit modal
+    var editButtons = document.querySelectorAll('button[data-bs-target="#editAppointmentModal"]');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            document.getElementById('editAppointmentId').value = button.getAttribute('data-id');
+            document.getElementById('editModalName').value = button.getAttribute('data-name');
+            document.getElementById('editModalEmail').value = button.getAttribute('data-email');
+            document.getElementById('editModalDate').value = button.getAttribute('data-date');
+            document.getElementById('editModalTime').value = button.getAttribute('data-timeslot');
+            document.getElementById('editModalStatus').value = button.getAttribute('data-status');
+        });
+    });
+</script>
+<script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                alert('Appointment has been updated succesfully!');
+            }
+        };
+ </script>
 
     <script>
-        // JavaScript to handle the navbar toggle
+        // JavaScript to handle the navbar toggle and modal prefill
         document.getElementById('navbarToggle').addEventListener('click', function() {
             document.getElementById('navbarContent').classList.toggle('collapsed');
             document.querySelector('.content').classList.toggle('collapsed');
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>

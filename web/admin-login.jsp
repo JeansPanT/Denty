@@ -17,7 +17,6 @@
             min-height: 100vh;
             background-color: #f4f4f4;
         }
-
         .login-container {
             max-width: 400px;
             width: 100%;

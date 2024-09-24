@@ -34,29 +34,29 @@
     <h2>Latest Updates</h2>
     <div class="services-container">
         <div class="service">
-            <h3>BLOG CASCADE</h3>
-            <img src="images/image1.jpg" width="500" height="300">
-            <h4>BLOG TITLE</h4>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
-            <p>Comprehensive health assessments and regular checkups.</p>
+            <h3>Clinic Update</h3>
+            <img src="images/image4.jpg" width="500" height="300">
+            <p class="text-center">We are excited to announce that our clinic is undergoing a significant renovation to enhance your experience. 
+                The updates will include modernized waiting areas, upgraded treatment rooms, and improved accessibility features. 
+                We anticipate the renovation to be completed by the end of the month, 
+                and we appreciate your patience and understanding during this transition. Stay tuned for more updates!</p>
+            
         </div>
         <div class="service">
-            <h3>BLOG CASCADE</h3>
-            <p>Dedicated care for infants, children, and adolescents.</p>
+            <h3>Discount Offer</h3>
+            <img src="images/image5.jpg" width="500" height="300">
+            <p class="text-center">We are thrilled to announce an exclusive discount offer for our valued patients! 
+                Enjoy a 20% discount on all dental treatments booked within the next month. 
+                Whether you're due for a routine check-up or considering a cosmetic procedure, now is the perfect time to take advantage of this limited-time offer. 
+                Schedule your appointment today and let us help you achieve a healthier smile!</p>
         </div>
         <div class="service">
-            <h3>BLOG CASCADE</h3>
-            <p>High-quality dental care with modern equipment.</p>
+            <h3>Terms & Conditions</h3>
+            <img src="images/image6.png" width="500" height="300">
+            <p class="text-center">Please be advised that we have updated our terms and conditions to better serve our patients. 
+                The revised terms include important changes regarding appointment cancellations, payment policies, and patient privacy. 
+                We encourage all patients to review the updated terms available on our website. If you have any questions or concerns, 
+                please do not hesitate to contact our office for clarification.</p>
         </div>
         
     </div>
@@ -66,7 +66,7 @@
 <!-- Feedback Form Section -->
 <section id="feedback" class="feedback">
     <h2>Feedback Form</h2>
-    <form action="#" method="POST" class="feedback-form">
+    <form action="FeedbackServlet" method="POST" class="feedback-form">
         <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
@@ -81,7 +81,7 @@
         </div>
         <div class="form-group">
             <label for="feedback">Feedback message</label>
-            <textarea id="feedback" name="feedback-response" rows="5" cols="55"></textarea>
+            <textarea id="feedback" name="feedback" rows="5" cols="55"></textarea>
         </div>
         <button type="submit" class="btn">Submit</button>
     </form>
@@ -93,7 +93,14 @@
         <p>© 2024 Denty App v1.0. All rights reserved.</p>
     </div>
 </footer>
-
+<script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                alert('Feedback has been submitted succesfully!');
+            }
+        }
+</script>
 <script src="script.js"></script>
 </body>
 </html>

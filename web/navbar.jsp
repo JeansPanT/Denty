@@ -217,13 +217,13 @@ h3 {
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link <%=(currentPage.contains("payments.jsp") ? "active" : "")%>">
+                <a href="payment.jsp" class="nav-link <%=(currentPage.contains("payment.jsp") ? "active" : "")%>">
                     <i class="fas fa-file-invoice-dollar"></i> <span>Payments</span>
                 </a>
             </li>
            <li class="nav-item">
     <a href="adminFeed.jsp" class="nav-link <%=(currentPage.contains("adminFeed.jsp") ? "active" : "")%>">
-        <i class="fa-solid fa-message-check"></i> <span>Feed Panel</span>
+        <i class="fas fa-rss"></i> <span>Feeds</span>
     </a>
 </li>
             <li class="nav-item">

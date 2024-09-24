@@ -67,3 +67,27 @@ body {
     cursor: pointer; /* Change cursor to pointer on hover */
 }
 
+.content {
+    padding: 20px;
+}
+
+.navigation-section {
+    margin-top: 20px;
+}
+
+.navigation-section h3 {
+    margin-bottom: 15px;
+}
+
+.navigation-section ul {
+    list-style-type: none;
+}
+
+.navigation-section ul li {
+    margin-bottom: 10px;
+}
+
+.navigation-section button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

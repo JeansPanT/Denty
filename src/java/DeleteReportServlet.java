@@ -9,13 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletContext;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet("/DeleteReportServlet")
 public class DeleteReportServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String UPLOAD_DIRECTORY = "C:/Users/JeansPanT/Desktop/My Programs/Denty App/build/web/uploads"; // Update as needed
+    private static final String UPLOAD_DIRECTORY = "uploads"; // Use relative path
 
     // Database connection details
     private static final String DB_URL = "jdbc:mysql://localhost:3306/denty";
@@ -35,8 +36,12 @@ public class DeleteReportServlet extends HttpServlet {
             return;
         }
 
+        // Get the absolute path for the uploads directory
+        ServletContext context = getServletContext();
+        String absolutePath = context.getRealPath("/") + UPLOAD_DIRECTORY;
+
         // Create a file object using the absolute path
-        File file = new File(UPLOAD_DIRECTORY, new File(filePath).getName());
+        File file = new File(absolutePath, new File(filePath).getName());
         System.out.println("File to delete: " + file.getAbsolutePath()); // Log file path
 
         Connection conn = null;

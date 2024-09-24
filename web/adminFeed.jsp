@@ -4,26 +4,32 @@
 <%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.ResultSet, java.sql.Statement" %>
 
 <%
+    // Check session
     if (session == null || session.getAttribute("username") == null) {
         response.sendRedirect("admin-login.jsp");
         return;
     }
 
+    // Disable caching
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     response.setHeader("Pragma", "no-cache");
     response.setDateHeader("Expires", 0);
 
+    // Database connection
     Connection conn = null;
     Statement stmt = null;
     ResultSet rs = null;
     List<String[]> posts = new ArrayList<>();
+    List<String[]> feedbacks = new ArrayList<>();
     
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/denty", "root", "");
+        
+        // Fetch posts
         stmt = conn.createStatement();
-        String sql = "SELECT id, title, description, imagePath FROM posts";
-        rs = stmt.executeQuery(sql);
+        String sqlPosts = "SELECT id, title, description, imagePath FROM posts";
+        rs = stmt.executeQuery(sqlPosts);
         
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -31,6 +37,20 @@
             String description = rs.getString("description");
             String imagePath = rs.getString("imagePath");
             posts.add(new String[]{String.valueOf(id), title, description, imagePath});
+        }
+
+        // Fetch feedback
+        rs.close(); // Close previous ResultSet
+        String sqlFeedback = "SELECT full_name, email, phone_number, message, created_at FROM feedback";
+        rs = stmt.executeQuery(sqlFeedback);
+        
+        while (rs.next()) {
+            String fullName = rs.getString("full_name");
+            String email = rs.getString("email");
+            String phoneNumber = rs.getString("phone_number");
+            String message = rs.getString("message");
+            String createdAt = rs.getString("created_at");
+            feedbacks.add(new String[]{fullName, email, phoneNumber, message, createdAt});
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -82,6 +102,30 @@
                     <td class="action-buttons">
                         <a href="DeletePostServlet?id=<%= post[0] %>" class="btn btn-danger btn-action" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
                     </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <h2 class="text-center mb-4">Feedback Responses</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (String[] feedback : feedbacks) { %>
+                <tr>
+                    <td><%= feedback[0] %></td>
+                    <td><%= feedback[1] %></td>
+                    <td><%= feedback[2] %></td>
+                    <td><%= feedback[3] %></td>
+                    <td><%= feedback[4] %></td>
                 </tr>
                 <% } %>
             </tbody>
